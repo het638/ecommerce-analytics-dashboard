@@ -1,0 +1,360 @@
+================================================================
+   E-COMMERCE SALES & CUSTOMER ANALYTICS — PROJECT EXPLANATION
+   Author: Het Savani
+   Date: June 2026
+   Tools: Python, MySQL, Power BI, Streamlit, Plotly
+================================================================
+
+
+----------------------------------------------------------------
+1. PROJECT OVERVIEW
+----------------------------------------------------------------
+
+This is an end-to-end data analytics project that simulates a
+real-world e-commerce business scenario. The goal is to analyze
+sales performance, customer behavior, and product trends using
+a complete data pipeline — from raw data generation to an
+interactive business dashboard.
+
+This type of project is used by companies to answer questions like:
+  - How much revenue did we make this month vs last month?
+  - Which products and categories are selling the most?
+  - Which customers are loyal and which are at risk of leaving?
+  - Which cities generate the most revenue?
+  - How do customers prefer to pay?
+
+
+----------------------------------------------------------------
+2. PROBLEM STATEMENT
+----------------------------------------------------------------
+
+A business has thousands of orders, customers, and products.
+The raw data is spread across multiple tables and is difficult
+to read or understand directly. We need to:
+
+  a) Organize the data into a clean database structure
+  b) Clean and process the raw data using Python
+  c) Create analytics summaries using SQL
+  d) Visualize insights in an interactive dashboard
+  e) Segment customers to identify high-value vs at-risk groups
+
+
+----------------------------------------------------------------
+3. TOOLS & TECHNOLOGIES USED
+----------------------------------------------------------------
+
+  PYTHON (version 3.12)
+  - Used for: data generation, cleaning, and loading
+  - Libraries: mysql-connector-python, pandas, streamlit, plotly
+  - Why Python: industry standard for data engineering and analytics
+
+  MYSQL (version 9.7)
+  - Used for: storing and organizing the data
+  - Why MySQL: most widely used open-source relational database
+  - We used SQL views to pre-calculate analytics summaries
+
+  POWER BI
+  - Used for: building the interactive business dashboard
+  - Connected to MySQL via ODBC driver
+  - Why Power BI: industry standard business intelligence tool
+
+  STREAMLIT + PLOTLY
+  - Used for: building a web-based analytics dashboard
+  - Why: lightweight, Python-native, runs in browser instantly
+
+
+----------------------------------------------------------------
+4. PROJECT STRUCTURE
+----------------------------------------------------------------
+
+ecommerce_analytics/
+│
+├── config.py                  → Database connection settings
+├── setup.py                   → Master script: runs everything
+├── dashboard.py               → Streamlit web dashboard
+│
+├── scripts/
+│   ├── generate_data.py       → Creates realistic fake data
+│   └── load_data.py           → Cleans and loads data to MySQL
+│
+├── sql/
+│   ├── schema.sql             → Creates database tables
+│   └── views.sql              → Creates analytics views
+│
+└── data/
+    └── raw/                   → Generated CSV files stored here
+
+
+----------------------------------------------------------------
+5. DATABASE DESIGN (Star Schema)
+----------------------------------------------------------------
+
+We designed a normalized relational database with 5 tables:
+
+  CUSTOMERS
+  - customer_id (primary key)
+  - customer_name, email, city, state, country
+  - registration_date
+  - Total: 2,000 customers
+
+  PRODUCTS
+  - product_id (primary key)
+  - product_name, category, price, cost
+  - 8 categories: Electronics, Clothing, Books, Sports,
+    Home & Garden, Toys, Beauty, Food & Grocery
+  - Total: 48 products
+
+  ORDERS
+  - order_id (primary key)
+  - customer_id (foreign key → customers)
+  - order_date, status (delivered/cancelled/returned)
+  - Total: 15,000 orders
+
+  ORDER_ITEMS
+  - order_item_id (primary key)
+  - order_id (foreign key → orders)
+  - product_id (foreign key → products)
+  - quantity, unit_price, discount
+  - Total: 44,816 order items
+
+  PAYMENTS
+  - payment_id (primary key)
+  - order_id (foreign key → orders)
+  - payment_date, amount, method
+  - Methods: Credit Card, Debit Card, UPI, Net Banking, COD
+  - Total: 11,879 payments
+
+  WHY THIS DESIGN?
+  - Avoids data duplication
+  - Each piece of information is stored only once
+  - Tables are linked through foreign keys
+  - This is called a "Star Schema" — industry standard for
+    data warehousing and analytics
+
+
+----------------------------------------------------------------
+6. DATA PIPELINE (ETL Process)
+----------------------------------------------------------------
+
+ETL stands for Extract, Transform, Load — the standard process
+for moving data from source to database.
+
+  STEP 1 — EXTRACT (generate_data.py)
+  - Generated 2,000 realistic customers across 8 Indian cities
+  - Generated 48 products across 8 categories with real prices
+  - Generated 15,000 orders over 3 years (2022-2024)
+  - Generated 44,816 order items with quantities and discounts
+  - Saved all data as CSV files
+
+  STEP 2 — TRANSFORM (load_data.py)
+  - Cleaned customer names (proper capitalization)
+  - Standardized email addresses (lowercase)
+  - Converted data types (strings to numbers where needed)
+  - Removed duplicates using INSERT IGNORE
+
+  STEP 3 — LOAD (load_data.py)
+  - Connected to MySQL database
+  - Cleared existing data to avoid duplicates
+  - Loaded all cleaned CSV data into MySQL tables
+  - Used batch insert for performance (faster than row-by-row)
+
+
+----------------------------------------------------------------
+7. SQL ANALYTICS VIEWS
+----------------------------------------------------------------
+
+We created 7 SQL views — these are pre-written queries saved
+in the database that can be reused by any tool (Power BI, Python).
+
+  VIEW 1: vw_monthly_revenue
+  - Shows revenue, orders, and customers per month
+  - Used for: revenue trend analysis
+  - Key insight: track growth or decline month by month
+
+  VIEW 2: vw_category_performance
+  - Shows revenue, units sold, and profit per product category
+  - Used for: identifying best and worst performing categories
+  - Key insight: Electronics is the top revenue category
+
+  VIEW 3: vw_top_products
+  - Shows best selling products ranked by revenue
+  - Used for: product performance analysis
+  - Key insight: Smartphone X12 and Wireless Earbuds are top sellers
+
+  VIEW 4: vw_customer_cohorts
+  - Groups customers by the month they first purchased
+  - Tracks how much each group spends over time
+  - Used for: customer retention analysis
+  - Key insight: identifies which months acquired most valuable customers
+
+  VIEW 5: vw_rfm
+  *** This is the most advanced analytics view ***
+  RFM stands for Recency, Frequency, Monetary
+  - RECENCY: how recently did the customer buy? (lower = better)
+  - FREQUENCY: how many times did they buy? (higher = better)
+  - MONETARY: how much did they spend? (higher = better)
+  Each customer gets a score 1-5 on each dimension.
+  Then they are grouped into segments:
+    - Champions: bought recently, buy often, spend most
+    - Loyal Customers: buy regularly, good spenders
+    - At Risk: used to buy often but haven't recently
+    - Lost: haven't bought in a long time
+    - Can't Lose Them: big spenders who are becoming inactive
+    - Recent Customers: bought recently but not often yet
+    - Potential Loyalists: recent buyers with good frequency
+  WHY RFM? This is a real technique used by marketing teams
+  to decide who to target with promotions and discounts.
+
+  VIEW 6: vw_payment_methods
+  - Breakdown of revenue and transactions by payment method
+  - Used for: understanding customer payment preferences
+
+  VIEW 7: vw_geo_revenue
+  - Revenue and orders breakdown by city and state
+  - Used for: identifying top markets geographically
+  - Key insight: Delhi generates the highest revenue
+
+
+----------------------------------------------------------------
+8. DASHBOARD
+----------------------------------------------------------------
+
+We built TWO dashboards:
+
+  DASHBOARD 1 — STREAMLIT (Web-based, Python)
+  File: dashboard.py
+  Run with: python -m streamlit run dashboard.py
+  URL: http://localhost:8501
+  Features:
+  - Dark theme modern design
+  - 4 KPI cards at the top
+  - Monthly revenue trend (line + bar combo)
+  - Category revenue (donut chart)
+  - Top products (horizontal bar)
+  - Payment methods breakdown
+  - RFM customer segments
+  - Geographic revenue (city/state)
+  - Cohort revenue analysis
+
+  DASHBOARD 2 — POWER BI (Interactive Business Dashboard)
+  File: dashboard.pbix
+  Features:
+  - 4 KPI cards: Total Revenue, Total Orders,
+    Total Customers, Avg Order Value
+  - Monthly Revenue Trend (line chart)
+  - Revenue by Category (donut chart)
+  - Top Products by Revenue (bar chart)
+  - Revenue by City (bar chart)
+  - Payment Methods (column chart)
+  - Customer Segments RFM (column chart)
+  - Cross-filtering: click any chart to filter all others
+  - Dark themed professional design
+
+
+----------------------------------------------------------------
+9. KEY BUSINESS INSIGHTS FROM THE DATA
+----------------------------------------------------------------
+
+  REVENUE
+  - Total Revenue: ~389 Million (3 years, 2022-2024)
+  - Average Order Value: ~43,460
+  - Revenue is consistent across all months (stable business)
+
+  PRODUCTS
+  - Electronics dominates revenue (55.59% of total)
+  - Smartphone X12 is the best selling single product
+  - Books and Toys have lowest revenue contribution
+
+  CUSTOMERS
+  - 2,000 total customers
+  - Loyal Customers are the largest RFM segment
+  - Delhi, Pune, and Chennai are top 3 cities by revenue
+
+  PAYMENTS
+  - All payment methods (UPI, Credit Card, Debit Card,
+    COD, Net Banking) are nearly equally popular
+  - No single method dominates — healthy diversity
+
+
+----------------------------------------------------------------
+10. SKILLS DEMONSTRATED IN THIS PROJECT
+----------------------------------------------------------------
+
+  DATA ENGINEERING
+  - Designed normalized relational database schema
+  - Built ETL pipeline from scratch using Python
+  - Handled data cleaning, type conversion, deduplication
+
+  SQL / DATABASE
+  - Created complex SQL views with JOINs and aggregations
+  - Used window functions (NTILE) for RFM scoring
+  - Used CTEs (WITH clauses) for cohort analysis
+  - Designed foreign key relationships
+
+  PYTHON PROGRAMMING
+  - File I/O (CSV reading and writing)
+  - Database connectivity (mysql-connector-python)
+  - Data generation with realistic randomization
+  - Script automation (setup.py runs entire pipeline)
+
+  DATA VISUALIZATION
+  - Built interactive dashboard with Streamlit + Plotly
+  - Built business dashboard in Power BI
+  - Connected Power BI to MySQL via ODBC
+  - Created cross-filtering relationships in Power BI data model
+
+  BUSINESS ANALYTICS
+  - RFM customer segmentation (real marketing technique)
+  - Cohort analysis for customer retention
+  - KPI tracking (Revenue, Orders, Customers, AOV)
+  - Geographic and category performance analysis
+
+
+----------------------------------------------------------------
+11. HOW TO RUN THE PROJECT
+----------------------------------------------------------------
+
+  REQUIREMENTS
+  - Python 3.12+
+  - MySQL Server 9.7+
+  - Power BI Desktop
+
+  SETUP (first time only)
+  1. Open config.py and set your MySQL password
+  2. Run: python setup.py
+     This will create database, generate data, load data,
+     and create all analytics views automatically.
+
+  RUN STREAMLIT DASHBOARD
+  - Run: python -m streamlit run dashboard.py
+  - Open browser: http://localhost:8501
+
+  OPEN POWER BI DASHBOARD
+  - Open dashboard.pbix in Power BI Desktop
+  - All charts will load automatically from MySQL
+
+
+----------------------------------------------------------------
+12. WHAT MAKES THIS PROJECT STRONG FOR A CV
+----------------------------------------------------------------
+
+  1. END-TO-END: covers the full data analytics workflow
+     (data → database → SQL → visualization)
+
+  2. REAL TECHNIQUES: RFM segmentation and cohort analysis
+     are used by actual companies (Amazon, Flipkart, etc.)
+
+  3. MULTIPLE TOOLS: Python + MySQL + Power BI shows
+     versatility across the data analytics stack
+
+  4. BUSINESS CONTEXT: every chart answers a real business
+     question — not just random charts
+
+  5. SCALE: 15,000 orders, 44,816 order items — realistic
+     dataset size that demonstrates handling real data volumes
+
+
+================================================================
+   END OF PROJECT EXPLANATION
+   Het Savani | hetsavani2002@gmail.com
+================================================================

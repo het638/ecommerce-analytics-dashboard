@@ -1,0 +1,49 @@
+product_id,product_name,category,price,cost
+67808a01-dd18-4053-84c5-0fa480be080e,Smartphone X12,Electronics,44077.19,26882.03
+260d5526-a02b-4470-8910-dd2965c49081,Laptop Pro,Electronics,11698.02,6594.45
+5f309a48-6fca-4fc7-af16-d1371f882ba4,Wireless Earbuds,Electronics,39563.77,18749.43
+36a114fa-f6c5-4717-84fc-5c9bd3d35950,"Smart TV 43""",Electronics,24385.5,15491.67
+64deed86-753b-4d57-84c7-e5c28769887b,Tablet Z,Electronics,14158.19,7681.76
+607ba2b7-ab27-424a-a933-c10ae2279e37,Bluetooth Speaker,Electronics,31315.93,15421.57
+95becb32-8771-4a0a-9962-0b61857314c6,Cotton T-Shirt,Clothing,2042.22,1371.49
+a744e4bd-02cc-487f-8284-0028e86bc588,Denim Jeans,Clothing,393.02,244.39
+e98891f9-7f3c-4a78-92aa-dcb50f7b5941,Summer Dress,Clothing,2456.94,1023.07
+a0f3cc8d-fa65-4857-9021-c33b11f83177,Formal Shirt,Clothing,2777.05,1670.34
+c03da33a-8225-443a-be19-f6ffa82d1108,Woolen Jacket,Clothing,982.31,506.29
+97eee5cb-cbee-4cc9-8765-e9b40916531c,Track Pants,Clothing,2024.8,1235.5
+1bde1c00-a026-44b5-869b-27e73e16fd5a,Coffee Maker,Home & Garden,13566.63,8215.61
+06adb69e-13d8-4fd9-a9d7-4edf3f56f798,Air Purifier,Home & Garden,8116.21,3822.04
+9c1e8cbd-7f0b-4c63-8920-624b9ee6d27c,Bedsheet Set,Home & Garden,6747.0,2714.72
+4cfdd57a-cf41-42c8-91e5-c2b6ed52b94b,Curtains,Home & Garden,14419.03,9779.74
+528c5374-3a35-4aa9-bb65-211d3779a31c,Garden Hose,Home & Garden,13785.23,6758.44
+b7abd93d-de21-4fb9-a254-a716beea817d,LED Bulb Pack,Home & Garden,14057.51,8814.06
+920ce157-3923-4024-9bb3-80b8d385cbe7,Yoga Mat,Sports,2659.71,1749.62
+7c310ae2-07f9-430a-88d8-1675d5c94684,Dumbbells 5kg,Sports,1616.89,859.63
+d017898b-5d53-4834-87a2-38a34946365a,Running Shoes,Sports,2809.92,1808.67
+dad8fa5a-df02-4405-ba50-92fc4e2d1270,Cricket Bat,Sports,5297.31,3373.3
+5a17c14e-8965-4e3f-bad6-ccc66423ecc2,Badminton Racket,Sports,2481.95,1052.42
+76a62061-165b-4724-8c11-bbad2b957446,Cycling Helmet,Sports,6323.65,3462.25
+fb2378b8-dca6-4250-a68c-fb4bf4941016,Python Cookbook,Books,762.25,516.77
+5f0eb283-5375-4f65-8a27-eb323b522329,Data Science 101,Books,398.45,209.87
+ea86ad5a-0f1f-4ee7-8548-0d4d80f3e77b,Business Strategy,Books,925.69,398.16
+2dff44f1-f509-416a-a71b-2ef576e63b73,Fiction Novel,Books,243.31,116.37
+4ae6c59b-59c2-49e5-a7e8-bb18ca331bcd,Self Help Guide,Books,158.73,83.53
+3732bc18-2fc4-4ca4-864d-14c6a378aefa,History of Art,Books,755.31,426.24
+1fe951be-2064-4f68-b647-2ad15cc1ffcc,LEGO Classic Set,Toys,1767.81,1075.82
+2bc66cbc-8b04-47ef-8b6a-348d7648f24d,Remote Car,Toys,3857.24,2285.07
+166c7985-fc8e-4027-aeb9-69d207ebdc72,Board Game,Toys,1081.13,576.27
+a534262d-ec9c-486e-8280-ca94107d125a,Stuffed Elephant,Toys,3276.92,1313.79
+9816c707-69ff-44bc-9e8c-89736271ee39,Puzzle 1000pc,Toys,1159.56,570.11
+ac06dcf5-17e6-4cfb-9d6e-8b7b957f1872,Action Figure,Toys,2963.46,1283.91
+3ec953d0-7b19-4923-a5df-98f3dcd2aaf9,Face Serum,Beauty,860.62,528.48
+b2b61f37-822f-46d5-8495-36d1801bea3f,Sunscreen SPF50,Beauty,2337.45,1390.21
+d7490731-b2b7-4af3-a902-52bcb27458f9,Shampoo 400ml,Beauty,519.9,300.61
+18232fd7-1340-4c03-a8be-4ec677104482,Lipstick Set,Beauty,1318.81,899.2
+b07a49ad-cec5-4fe4-806a-c98140770dba,Moisturizer,Beauty,1436.2,950.84
+8341b85e-d87a-4c7a-b268-086b02c5714d,Perfume 50ml,Beauty,529.64,239.42
+2279d7ef-44d4-443f-9168-bb3607c6ee76,Organic Honey,Food & Grocery,929.82,463.31
+e67e07e4-82ab-41d9-94d1-c0b639f36582,Mixed Nuts 500g,Food & Grocery,493.8,210.02
+b1f8524a-7980-420c-8f8d-12b3e1fac431,Green Tea 100bags,Food & Grocery,614.01,318.09
+a338afd4-1939-48c4-9fc3-416d6dbe72e1,Olive Oil 1L,Food & Grocery,627.63,408.21
+4fd43964-7af8-4af3-af1b-6bc750165f80,Protein Bar 12pk,Food & Grocery,898.12,364.83
+257d0e67-11df-4bf6-94d8-f8276f5a693f,Coffee Beans,Food & Grocery,131.18,74.45
